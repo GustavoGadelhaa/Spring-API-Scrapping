@@ -1,4 +1,4 @@
-/*package com.gustavo_case.crud.DTOs;
+package com.gustavo_case.crud.DTOs;
 
 import java.math.BigDecimal;
 
@@ -10,4 +10,3 @@ public record LivroScrapResponseDTO(
         String isbn,
         int anoPublicacao
 ) {}
-*/

@@ -1,5 +1,5 @@
 package com.gustavo_case.crud.Mapper;
-
+//ainda sem uso correto
 
 import com.gustavo_case.crud.DTOs.LivroScrapRequestDTO;
 import com.gustavo_case.crud.DTOs.LivroScrapResponseDTO;
