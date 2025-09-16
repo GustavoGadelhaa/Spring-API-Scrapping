@@ -26,7 +26,7 @@ public class LivroScrappingService {
     private final CategoriaRepository categoriaRepository;
 
     public Livro importarLivro(String url, Long autorId, Long categoriaId) throws IOException {
-        // conecta com headers/padrões pra evitar bloqueio
+
         Document pagina = Jsoup.connect(url)
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
                 .referrer("https://www.google.com")
