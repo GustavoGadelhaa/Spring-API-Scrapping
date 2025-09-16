@@ -55,7 +55,8 @@ GET http://localhost:8080/api/categoria/{id}
 POST http://localhost:8080/api/categoria  
 Body (JSON):```
 {
-  "nome": "Tecnologia"
+  "nome": "Tecnologia",
+  "descricao":"avanços tecnológicos"
 }
 
 ### Resposta esperada:
