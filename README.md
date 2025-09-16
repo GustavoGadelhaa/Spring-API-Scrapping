@@ -31,7 +31,10 @@ incluindo **importação de livros via scraping da Amazon**, utilizando **Java +
 ### Exemplo de requisição para criar autor:
 POST http://localhost:8080/api/autores  
 Body (JSON):
-```json{
+### Exemplo de payload (JSON)
+
+```json
+{
   "nome": "Gustavo Gadelha",
   "email": "gustavo@gmail.com",
   "dataNascimento": "2003-10-31"
@@ -53,18 +56,22 @@ GET http://localhost:8080/api/categoria/{id}
 
 ### Exemplo de requisição para criar categoria:
 POST http://localhost:8080/api/categoria  
-Body (JSON):```
+Body (JSON):
+```json
 {
   "nome": "Tecnologia",
   "descricao":"avanços tecnológicos"
 }
+```
 
 ### Resposta esperada:
- `` {
+ ```json
+ {
   "id": 1,
   "nome": "Tecnologia",
   "livros": []
-}``
+ }
+ ```
 
 --------------------------
 
@@ -94,7 +101,8 @@ POST http://localhost:8080/api/livros/scrap
 
 ### Exemplo de requisição para criar livro manualmente:
 POST http://localhost:8080/api/livros  
-Body (JSON):``
+Body (JSON):
+```json
 {
   "titulo": "Spring Boot na Prática",
   "isbn": "9781234567890",
@@ -102,19 +110,23 @@ Body (JSON):``
   "preco": 59.90,
   "autor": { "id": 1 },
   "categoria": { "id": 1 }
-}``
+}
+```
 
 ### Exemplo de requisição para criar livro via scraping:
 POST http://localhost:8080/api/livros/scrap  
-Body (JSON):``
+Body (JSON):
+```json
 {
   "url": "https://www.amazon.com.br/dp/0747591059",
   "autorId": 1,
   "categoriaId": 1
-}``
+}
+```
 
 ### Resposta esperada para scraping:
-``{
+```json
+{
   "id": 1,
   "titulo": "Harry Potter e a Pedra Filosofal",
   "isbn": "9780747591054",
@@ -123,7 +135,8 @@ Body (JSON):``
   "autor": { "id": 1, "nome": "J.K. Rowling" },
   "categoria": { "id": 1, "nome": "Ficção" },
   "url": "https://www.amazon.com.br/dp/0747591059"
-}``
+}
+```
 
 > ⚠️ Regras de validação do livro:  
 > - titulo não pode ser vazio  
