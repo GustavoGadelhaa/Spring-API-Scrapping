@@ -137,7 +137,41 @@ Body (JSON):
   "url": "https://www.amazon.com.br/dp/0747591059"
 }
 ```
+### Endpoints de livros para scrapping:
 
+- **Livro 1 – Harry Potter e a Pedra Filosofal:**  
+`https://www.amazon.com.br/dp/0747591059`
+
+- **Livro 2 – Meditações (Marco Aurélio):**  
+`https://www.amazon.com.br/dp/0140449132`
+
+- **Livro 3 – Sapiens: Uma Breve História da Humanidade:**  
+`https://www.amazon.com.br/dp/0062316095`
+
+- **Livro 4 – Effective Java:**  
+`https://www.amazon.com.br/dp/0134685997`
+
+- **Livro 5 – Harry Potter e a Câmara Secreta:**  
+`https://www.amazon.com.br/dp/059035342X`
+
+- **Livro 6 – C# in Depth:**  
+`https://www.amazon.com.br/dp/0321356683`
+
+- **Livro 7 – Python Crash Course:**  
+`https://www.amazon.com.br/dp/1491950358`
+
+- **Livro 8 – A Culpa é das Estrelas:**  
+`https://www.amazon.com.br/dp/0307346602`
+
+- **Livro 9 – O Homem mais Rico da Babilônia:**  
+`https://www.amazon.com.br/dp/0553380168`
+
+- **Livro 10 – O Sol é para Todos:**  
+`https://www.amazon.com.br/dp/0446310786`
+
+ ---
+
+  
 > ⚠️ Regras de validação do livro:  
 > - titulo não pode ser vazio  
 > - isbn deve ter 10 ou 13 caracteres  
