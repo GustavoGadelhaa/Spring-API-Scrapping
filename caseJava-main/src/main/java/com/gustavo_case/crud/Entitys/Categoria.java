@@ -1,6 +1,9 @@
 package com.gustavo_case.crud.Entitys;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +25,8 @@ public class Categoria {
 
     @Column(name = "descricao")
     private String descricao;
+
+    @OneToMany(mappedBy = "categoria")
+    @JsonIgnoreProperties("categoria")
+    private List<Livro> livros;
 }

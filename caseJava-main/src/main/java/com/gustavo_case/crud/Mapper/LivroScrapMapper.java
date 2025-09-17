@@ -14,11 +14,6 @@ public interface LivroScrapMapper {
     @Mapping(source = "categoria.nome", target = "categoriaNome")
     LivroScrapResponseDTO entityToResponseDto(Livro livro);
 
-    // ResponseDTO -> Entity (autor e categoria devem ser setados no service)
-    Livro responseDtoToEntity(LivroScrapResponseDTO responseDTO);
-
-    // Entity -> RequestDTO
-    LivroScrapRequestDTO entityToRequestDto(Livro livro);
 
     // RequestDTO -> Entity
     Livro requestDtoToEntity(LivroScrapRequestDTO dto);
