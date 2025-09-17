@@ -1,8 +1,11 @@
 package com.gustavo_case.crud.Service;
 
+import com.gustavo_case.crud.DTOs.LivroScrapRequestDTO;
+import com.gustavo_case.crud.DTOs.LivroScrapResponseDTO;
 import com.gustavo_case.crud.Entitys.Autor;
 import com.gustavo_case.crud.Entitys.Categoria;
 import com.gustavo_case.crud.Entitys.Livro;
+import com.gustavo_case.crud.Mapper.LivroScrapMapper;
 import com.gustavo_case.crud.Repository.AutorRepository;
 import com.gustavo_case.crud.Repository.CategoriaRepository;
 import com.gustavo_case.crud.Repository.LivrosRepository;
@@ -24,10 +27,15 @@ public class LivroScrappingService {
     private final LivrosRepository livrosRepository;
     private final AutorRepository autorRepository;
     private final CategoriaRepository categoriaRepository;
+    private final LivroScrapMapper livroMapper;
 
-    public Livro importarLivro(String url, Long autorId, Long categoriaId) throws IOException {
 
-        Document pagina = Jsoup.connect(url)
+    public LivroScrapResponseDTO importarLivro(LivroScrapRequestDTO requestDTO) throws IOException {
+
+
+        Livro livro = livroMapper.requestDtoToEntity(requestDTO);
+
+        Document pagina = Jsoup.connect(requestDTO.url())
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
                 .referrer("https://www.google.com")
                 .timeout(10_000)
@@ -48,10 +56,9 @@ public class LivroScrappingService {
 
         String whole = precoWholeEl.text().replaceAll("[^0-9]", "");
         String fraction = (precoFractionEl != null) ? precoFractionEl.text().trim() : "00";
-        String precoStr = whole + "." + fraction;
-        BigDecimal precoCompleto = new BigDecimal(precoStr);
+        BigDecimal precoCompleto = new BigDecimal(whole + "." + fraction);
 
-        // ISBN com opcoes reservas
+        // ISBN
         Element isbnEl = pagina.selectFirst(":nth-child(7) > .a-list-item > span:nth-child(2)");
         if (isbnEl == null) isbnEl = pagina.selectFirst(":nth-child(8) > .a-list-item > span:nth-child(2)");
         if (isbnEl == null) isbnEl = pagina.selectFirst("#rpi-attribute-book_details-isbn10 > .a-section.a-spacing-none.a-text-center.rpi-attribute-value > span");
@@ -72,22 +79,22 @@ public class LivroScrappingService {
         }
 
         // BUSCA AUTOR E CATEGORIA
-        Autor autor = autorRepository.findById(autorId)
+        Autor autor = autorRepository.findById(requestDTO.autorId())
                 .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
-        Categoria categoria = categoriaRepository.findById(categoriaId)
+        Categoria categoria = categoriaRepository.findById(requestDTO.categoriaId())
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
-        // MONTA ENTIDADE
-        Livro livro = new Livro();
+
         livro.setTitulo(titulo);
         livro.setPreco(precoCompleto);
         livro.setIsbn(isbn);
         livro.setAnoPublicacao(anoPublicacao);
         livro.setAutor(autor);
         livro.setCategoria(categoria);
-        livro.setUrl(url);
+        livro.setUrl(requestDTO.url());
 
-        // SALVA e retorna
-        return livrosRepository.save(livro);
+        // Salva e retorna ResponseDTO
+        Livro livroSalvo = livrosRepository.save(livro);
+        return livroMapper.entityToResponseDto(livroSalvo);
     }
 }

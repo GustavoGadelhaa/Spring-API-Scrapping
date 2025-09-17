@@ -1,7 +1,9 @@
 package com.gustavo_case.crud.Controller;
 
 import com.gustavo_case.crud.DTOs.LivroScrapRequestDTO;
+import com.gustavo_case.crud.DTOs.LivroScrapResponseDTO;
 import com.gustavo_case.crud.Entitys.Livro;
+import com.gustavo_case.crud.Mapper.LivroScrapMapper;
 import com.gustavo_case.crud.Service.LivroScrappingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +17,16 @@ import java.io.IOException;
 public class LivroScrappingController {
 
     private final LivroScrappingService livroScrappingService;
+    private final LivroScrapMapper mapper;
 
     @PostMapping("/scrap")
-    public ResponseEntity<Livro> inserirLivro(@RequestBody LivroScrapRequestDTO dto) throws IOException {
-        Livro livro = livroScrappingService.importarLivro(
-                dto.url(),
-                dto.autorId(),
-                dto.categoriaId()
-        );
-        return ResponseEntity.ok(livro);
+    public ResponseEntity<LivroScrapResponseDTO> inserirLivro(@RequestBody LivroScrapRequestDTO dto) throws IOException {
+        LivroScrapResponseDTO responseDTO = livroScrappingService.importarLivro(dto);
+        return ResponseEntity.ok(responseDTO);
     }
+
+
+
 
 
 }
